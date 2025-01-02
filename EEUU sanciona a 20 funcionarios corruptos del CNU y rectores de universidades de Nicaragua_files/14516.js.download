@@ -1,0 +1,32 @@
+var truvidScriptElement;
+var targetDocument = window.frameElement ? window.frameElement.ownerDocument : document;
+
+truvidScriptElement = document.createElement("script");
+truvidScriptElement.type = "text/javascript";
+truvidScriptElement.async = true;
+truvidScriptElement.setAttribute("data-pid", "11322");
+truvidScriptElement.src = "//go.trvdp.com/init/14516.js";
+
+function insertTruvidScript(){
+  var placeholderElement = targetDocument.querySelector(".story__body");
+  if (placeholderElement) {
+  	var placeholderChildren = placeholderElement.getElementsByTagName('p')[0];
+    if(placeholderChildren)
+  	{
+var placeholderChildrenInner = placeholderChildren.getElementsByTagName('br')[0];
+if(placeholderChildrenInner)
+  	{
+        clearInterval(checkForPlaceholderInterval);
+        placeholderChildrenInner.parentNode.insertBefore(truvidScriptElement,placeholderChildrenInner);
+        return false;
+    }
+    else{
+      clearInterval(checkForPlaceholderInterval);
+        placeholderChildren.parentNode.insertBefore(truvidScriptElement,placeholderChildren);
+        return false;
+    }
+    }
+  }
+}
+
+var checkForPlaceholderInterval = setInterval(insertTruvidScript, 200);
